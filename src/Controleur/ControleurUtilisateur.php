@@ -11,6 +11,10 @@ class ControleurUtilisateur extends ControleurGenerique
         $login = $_REQUEST['login'];
         $utilisateur = (new UtilisateurRepository())->recupererParClePrimaire($login);
         self::afficherVue('vueGenerale.php', ['utilisateur' => $utilisateur, 'titre' => 'Détails utilisateur', 'cheminCorpsVue' => 'utilisateur/details.php']);
+    }
 
+    public static function afficherFormulaireConnexion(): void
+    {
+        self::afficherVue('vueGenerale.php', ['titre' => 'Connexion', 'cheminCorpsVue' => 'utilisateur/formulaireConnexion.php']);
     }
 }
