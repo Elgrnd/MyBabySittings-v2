@@ -3,6 +3,7 @@
 namespace App\MyBabySittings\Modele\Repository;
 
 use App\MyBabySittings\Modele\DataObject\AbstractDataObject;
+use PDOException;
 
 abstract class AbstractRepository
 {
@@ -31,4 +32,33 @@ abstract class AbstractRepository
 
         return $this->construireDepuisTableauSQL($objetFormatTableau);
     }
+
+    public function ajouter(AbstractDataObject $objet): bool
+    {
+        $nomTable = $this->getNomTable();
+        $colonnes = join(",", $this->getNomColonnes());
+        $donneeColonnes = $this->formatTableauSQL($objet);
+        $colonnesTag = "";
+        foreach ($this->getNomColonnes() as $nomColonne) {
+            $colonnesTag = $colonnesTag . ":" . $nomColonne . "Tag, ";
+        }
+        $colonnesTag = substr($colonnesTag, 0, -2);
+        try {
+            $sql = "INSERT INTO $nomTable ($colonnes) VALUES ($colonnesTag)";
+            $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+
+            $pdoStatement->execute($donneeColonnes);
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+
+    }
+
+    protected abstract function formatTableauSQL(AbstractDataObject $objet): array;
+
+    protected abstract function getNomTable(): string;
+    protected abstract function getNomClePrimaire(): string;
+    protected abstract function getNomColonnes(): array;
+    protected abstract function construireDepuisTableauSQL(array $objetFormatTableau) : AbstractDataObject;
 }

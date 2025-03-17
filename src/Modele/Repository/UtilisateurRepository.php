@@ -14,13 +14,15 @@ class UtilisateurRepository extends AbstractRepository
             "loginTag" => $objet->getLogin(),
             "nomTag" => $objet->getNom(),
             "prenomTag" => $objet->getPrenom(),
+            "emailTag" => $objet->getEmail(),
             "mdpHacheTag" => $objet->getMdpHache(),
+            "estAdminTag" => $objet->isEstAdmin()
         );
     }
 
     protected function getNomColonnes(): array
     {
-        return ["login", "nom", "prenom", "mdpHache"];
+        return ["login", "nom", "prenom", "email", "mdpHache", "estAdmin"];
     }
 
     protected function getNomClePrimaire() : string {
@@ -37,7 +39,9 @@ class UtilisateurRepository extends AbstractRepository
             $objetFormatTableau['login'],
             $objetFormatTableau['nom'],
             $objetFormatTableau['prenom'],
-            $objetFormatTableau['mdpHache']
+            $objetFormatTableau['email'],
+            $objetFormatTableau['mdpHache'],
+            $objetFormatTableau['estAdmin']
         );
     }
 }

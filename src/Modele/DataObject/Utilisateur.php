@@ -7,13 +7,17 @@ class Utilisateur extends AbstractDataObject
     private string $login;
     private string $nom;
     private string $prenom;
+    private string $email;
     private string $mdpHache;
+    private bool $estAdmin;
 
-    public function __construct(string $login, string $nom, string $prenom, string $mdpHache) {
+    public function __construct(string $login, string $nom, string $prenom, string $email, string $mdpHache, bool $estAdmin) {
         $this->login = $login;
         $this->nom = $nom;
         $this->prenom = $prenom;
+        $this->email = $email;
         $this->mdpHache = $mdpHache;
+        $this->estAdmin = $estAdmin;
     }
 
     public function __toString(): string
@@ -51,6 +55,16 @@ class Utilisateur extends AbstractDataObject
         $this->prenom = $prenom;
     }
 
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
     public function getMdpHache(): string
     {
         return $this->mdpHache;
@@ -59,6 +73,16 @@ class Utilisateur extends AbstractDataObject
     public function setMdpHache(string $mdpHache): void
     {
         $this->mdpHache = $mdpHache;
+    }
+
+    public function isEstAdmin(): bool
+    {
+        return $this->estAdmin;
+    }
+
+    public function setEstAdmin(bool $estAdmin): void
+    {
+        $this->estAdmin = $estAdmin;
     }
 
 

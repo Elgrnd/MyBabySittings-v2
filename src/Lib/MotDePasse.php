@@ -1,6 +1,6 @@
 <?php
 
-namespace App\MyBabySittings\Modele\HTTP;
+namespace App\MyBabySittings\Lib;
 
 class MotDePasse
 {
